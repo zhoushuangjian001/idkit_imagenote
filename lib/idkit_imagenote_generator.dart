@@ -11,13 +11,13 @@ class IDKitImageNoteGenerator extends GeneratorForAnnotation<IDKitImageNote> {
   String _pubSpecContent = "";
   // Instructions for annotations.
   String _explainContent =
-      "// ************************************************************\n"
+      "// **************************************************************************\n"
       "// 如果有图像资源需要更新，请先执行清除指令如下:\n"
       "// flutter packages pub run build_runner clean \n"
       "// \n"
       "// 然后，执行命令重新生成注解文件，执行指令如下:\n"
       "// flutter packages pub run build_runner build --delete-conflicting-outputs \n"
-      "// ************************************************************\n";
+      "// **************************************************************************\n";
 
   @override
   generateForAnnotatedElement(
@@ -56,10 +56,10 @@ class IDKitImageNoteGenerator extends GeneratorForAnnotation<IDKitImageNote> {
 
     // Return code.
     return "$_explainContent\n\n"
-        "class ${className.trim()} {\n"
+        "class $className {\n"
         "   $className._();\n"
         "   $_codeContent\n"
-        "}\n";
+        "}";
   }
 
   /// Processing image subfile references
@@ -88,12 +88,13 @@ class IDKitImageNoteGenerator extends GeneratorForAnnotation<IDKitImageNote> {
             !keyName.endsWith(".GIF")) continue;
 
         // Replace suffix of picture resource.
-        var key = keyName.replaceAll(RegExp(sourcePath.toUpperCase()), '')
-          ..replaceAll(RegExp('.PNG'), '')
-          ..replaceAll(RegExp('.JPEG'), '')
-          ..replaceAll(RegExp('.SVG'), '')
-          ..replaceAll(RegExp('.JPG'), '')
-          ..replaceAll(RegExp('.GIF'), '');
+        var key = keyName
+            .replaceAll(RegExp(sourcePath.toUpperCase()), '')
+            .replaceAll(RegExp('.PNG'), '')
+            .replaceAll(RegExp('.JPEG'), '')
+            .replaceAll(RegExp('.SVG'), '')
+            .replaceAll(RegExp('.JPG'), '')
+            .replaceAll(RegExp('.GIF'), '');
 
         // Code building.
         _codeContent = "$_codeContent\t\t\t\tstatic const $key = '$filePath';";

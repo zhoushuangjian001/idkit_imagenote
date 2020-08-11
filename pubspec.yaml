@@ -18,7 +18,7 @@ dev_dependencies:
     sdk: flutter
 
   # The build_ Runner provides commands to compile dart code.
-  build_runner: ^1.10.2
+  build_runner: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
